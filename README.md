@@ -1,5 +1,7 @@
 # Folder (he said "it's unfold!!!".)
 
+[![Build Status](https://travis-ci.org/tatat/folder.png)](https://travis-ci.org/tatat/folder)
+
 String keys make directory structure
 
 ## Installation
