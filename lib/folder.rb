@@ -26,7 +26,7 @@ module Folder
   end
 
   def fold(separator = DEFAULT_SEPARATOR)
-    dup.fold! separator
+    clone.fold! separator
   end
 end
 
