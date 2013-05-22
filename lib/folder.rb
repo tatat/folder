@@ -4,26 +4,25 @@ module Folder
   DEFAULT_SEPARATOR = '.'.freeze
 
   def fold!(separator = DEFAULT_SEPARATOR)
-    klass = self.class
-    temp  = klass.new
+    klass  = self.class
+    folded = klass.new
 
     each do |key, value|
-      next unless key.is_a?(String) and key.index(separator)
+      next unless key.is_a?(String) and key.include?(separator)
 
-      *keys, last = key.split(separator, -1)
-      current     = temp
+      keys = key.split(separator, -1)
+      last = keys.pop
 
-      while keys.length != 0
-        k          = keys.shift
-        current[k] = klass.new unless current[k].is_a?(klass)
-        current    = current[k]
-      end
+      current = keys.reduce(folded) {|memo, item|
+        memo[item].is_a?(klass) ?
+          memo[item] : (memo[item] = klass.new)
+      }
 
       current[last] = value unless current[last].is_a?(klass)
       delete key
     end
 
-    merge! temp
+    merge! folded
   end
 
   def fold(separator = DEFAULT_SEPARATOR)
@@ -31,7 +30,5 @@ module Folder
   end
 end
 
-class Hash
-  include Folder
-end
+Hash.__send__(:include, Folder)
 
