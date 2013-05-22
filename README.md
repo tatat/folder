@@ -1,6 +1,6 @@
 # Folder
 
-string keys make directory structur
+String keys make directory structur
 
 ## Installation
 
@@ -18,7 +18,48 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Like this
+
+```ruby
+h = {'a.b.c' => 'd'}
+
+p h.fold  #=> {"a"=>{"b"=>{"c"=>"d"}}}
+p h       #=> {"a.b.c"=>"d"}
+p h.fold! #=> {"a"=>{"b"=>{"c"=>"d"}}}
+p h       #=> {"a"=>{"b"=>{"c"=>"d"}}}
+
+h = {'a/b/c' => 'd'}
+
+p h.fold      #=> {"a/b/c"=>"d"}
+p h.fold('/') #=> {"a"=>{"b"=>{"c"=>"d"}}}
+```
+
+### Example (Ruby on Rails)
+
+Controller
+
+```ruby
+class ExampleController < ApplicationController
+
+  def create
+    render json: Example.create!(example_params)
+  end
+
+  protected
+
+  def example_params
+    params.fold.require(:example)
+      .permit(:nyan, :mew)
+  end
+
+end
+```
+
+Request
+
+```sh
+curl http://localhost:3000/example.json -d example.nyan=neko -d example.mew=koneko
+```
 
 ## Contributing
 
