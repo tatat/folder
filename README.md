@@ -1,6 +1,6 @@
 # Folder (he said "it's unfold!!!".)
 
-String keys make directory structur
+String keys make directory structure
 
 ## Installation
 

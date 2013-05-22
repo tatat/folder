@@ -49,7 +49,7 @@ describe Hash, '#fold!' do
     expect(@hash.fold!).to be(@hash)
   end
 
-  it 'should be fold specified separator' do
+  it 'should fold with specified separator' do
     hash = {
       'nyan'  => true,
       'ny/an' => true,
